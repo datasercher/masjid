@@ -1,0 +1,53 @@
+{% extends 'finance/base.html' %}
+
+{% block title %}رقم جمع کریں{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center; font-size: 36px; font-family: 'Jameel Noori Nastaleeq', sans-serif; color: white;">جمع فنڈ</h1>
+
+    <div class="form-container">
+        <form method="post" style="text-align: right; width: 100%; max-width: 400px; margin: 0 auto;">
+            {% csrf_token %}
+
+            {% for field in form %}
+                    <label for="{{ field.id_for_label }}" style="font-size: 28px; font-family: 'Jameel Noori Nastaleeq', sans-serif; display: block; margin-bottom: 5px; text-align: right;">
+                        {{ field.label }}
+                    </label>
+                    {% if field.widget.input_type == 'fund' %}
+                        <!-- Custom styling for select fields -->
+                        <div style="font-size: 38px; font-family: 'Jameel Noori Nastaleeq', sans-serif;">
+                            {{ field }}
+                        </div>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
+            {% endfor %}
+
+            <button type="submit" style="font-size: 22px; font-family: 'Jameel Noori Nastaleeq', sans-serif; padding: 12px 24px; width: 100%; background-color: #007BFF; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                رقم جمع کریں 
+            </button>
+        </form>
+    </div>
+
+    <script>
+        const fundTypeField = document.getElementById('id_fund');
+        const fundNameField = document.getElementById('id_fund_name');
+
+        fundTypeField.addEventListener('change', function() {
+            if (fundTypeField.value === 'OF') {
+                fundNameField.style.display = 'block';
+            } else {
+                fundNameField.style.display = 'none';
+            }
+        });
+
+        // Increase text size dynamically as the user types
+        const inputFields = document.querySelectorAll('input, select');
+
+        inputFields.forEach(field => {
+            field.addEventListener('input', function() {
+                this.style.fontSize = '28px'; // Increase the font size when user types
+            });
+        });
+    </script>
+{% endblock %}

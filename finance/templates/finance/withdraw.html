@@ -1,0 +1,82 @@
+{% extends 'finance/base.html' %}
+
+{% block title %}نکالنا{% endblock %}
+
+{% block content %}
+<h1 class="my-4" style="text-align: center; font-family: 'Jameel Noori Nastaleeq', sans-serif; font-size: 36px; color: white;">رقم نکالیں</h1>
+
+<div class="form-container">
+    <form method="POST" style="text-align: right; width: 100%; max-width: 400px; margin: 0 auto;">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <!-- Category Field -->
+            <label for="id_category" style="font-size: 26px; font-family: 'Jameel Noori Nastaleeq', sans-serif; display: block; margin-bottom: 8px; text-align: right;">
+                اخراجات کی قسم
+            </label>
+            <select name="category" id="id_category" style="font-size: 24px; padding: 10px; font-family: 'Jameel Noori Nastaleeq', sans-serif; text-align: right;">
+                {% for value, label in form.category.field.choices %}
+                    {% if value %}
+                        <option value="{{ value }}" {% if value == form.category.value %}selected{% endif %}>{{ label }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <!-- Expense Name Field (Initially Hidden) -->
+            <div id="expense_name_field" style="display: none; margin-bottom: 15px;">
+                <label for="id_expense_name" style="font-size: 26px; font-family: 'Jameel Noori Nastaleeq', sans-serif; display: block; margin-bottom: 8px; text-align: right;">
+                    اخراجات کا نام
+                </label>
+                {{ form.expense_name }}
+            </div>
+
+            <!-- Amount Field -->
+            <label for="id_amount" style="font-size: 26px; font-family: 'Jameel Noori Nastaleeq', sans-serif; display: block; margin-bottom: 8px; text-align: right;">
+                رقم
+            </label>
+            {{ form.amount }}
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="font-size: 28px; font-family: 'Jameel Noori Nastaleeq', sans-serif; padding: 12px 24px; width: 100%; background-color: #007BFF; color: white; border: none; border-radius: 8px; cursor: pointer;">
+            رقم نکالیں
+        </button>
+    </form>
+</div>
+<div>
+    {% if form.errors %}
+    <div class="alert alert-danger mt-4">
+        <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li style="font-size: 26px; font-family: 'Jameel Noori Nastaleeq', sans-serif; display: block; margin-bottom: 8px; text-align: center; color: red;">{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+<!-- JavaScript to show/hide the 'expense_name' field based on category -->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        var categoryField = document.getElementById("id_category");
+        var expenseNameField = document.getElementById("expense_name_field");
+
+        // Function to toggle visibility of 'expense_name' field based on selected category
+        function toggleExpenseNameField() {
+            if (categoryField.value === 'other_expense') {
+                expenseNameField.style.display = "block"; // Show expense name field
+            } else {
+                expenseNameField.style.display = "none"; // Hide expense name field
+            }
+        }
+
+        // Initial check in case the form is pre-filled
+        toggleExpenseNameField();
+
+        // Add event listener to watch for changes in category selection
+        categoryField.addEventListener("change", toggleExpenseNameField);
+    });
+</script>
+
+{% endblock %}

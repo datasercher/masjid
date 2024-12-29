@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Jameel Noori Nastaleeq';
+    src: url("{% static 'fonts/JameelNooriNastaleeq.ttf' %}") format('truetype'),
+         url("{% static 'fonts/JameelNooriNastaleeq.woff' %}") format('woff'),
+         url("{% static 'fonts/JameelNooriNastaleeq.woff2' %}") format('woff2');
+}
+
+body {
+    font-family: 'Jameel Noori Nastaleeq', Arial, sans-serif;
+}

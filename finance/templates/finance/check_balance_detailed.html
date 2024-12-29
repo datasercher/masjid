@@ -1,0 +1,47 @@
+{% extends 'finance/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center my-4">بیلنس چیک کریں</h2>
+    <form method="GET" action="{% url 'check_balance' %}">
+        <div class="row">
+            <!-- Balance Type Selection -->
+            <div class="col-md-4">
+                <label for="balance_type" class="form-label">بیلنس کی قسم منتخب کریں:</label>
+                <select id="balance_type" name="balance_type" class="form-select">
+                    <option value="deposit" {% if balance_type == "deposit" %}selected{% endif %}>ڈپازٹ</option>
+                    <option value="withdraw" {% if balance_type == "withdraw" %}selected{% endif %}>نکاسی</option>
+                </select>
+            </div>
+            <!-- Date Range Selection -->
+            <div class="col-md-4">
+                <label for="start_date" class="form-label">شروع کرنے کی تاریخ:</label>
+                <input type="date" id="start_date" name="start_date" class="form-control" value="{{ start_date }}">
+            </div>
+            <div class="col-md-4">
+                <label for="end_date" class="form-label">آخری تاریخ:</label>
+                <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}">
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">چیک کریں</button>
+        </div>
+    </form>
+
+    <!-- Display Results -->
+    {% if total_amount is not None %}
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">
+                        {% if balance_type == "deposit" %} کل ڈپازٹ {% else %} کل نکاسی {% endif %}
+                    </h5>
+                    <p class="card-text text-center">{{ total_amount|floatformat:2 }} روپے</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

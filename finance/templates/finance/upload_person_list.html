@@ -1,0 +1,16 @@
+{% extends 'finance/base.html' %}
+{% block content %}
+<h1 style="text-align: center; font-size: 24px;">Upload Person List</h1>
+
+{% if error %}
+<p style="color: red; text-align: center;">{{ error }}</p>
+{% endif %}
+
+<div style="max-width: 500px; margin: 0 auto;">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" style="font-size: 18px;">Upload</button>
+    </form>
+</div>
+{% endblock %}

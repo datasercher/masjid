@@ -1,0 +1,72 @@
+{% extends 'finance/base.html' %}
+{% block content %}
+<h1 style="font-size: 36px; font-weight: bold; text-align: center; margin-bottom: 20px; color: white;">فہرست</h1>
+<div class="form-container" style="max-width: 400px; margin: 0 auto; padding: 15px;  border-radius: 8px;">
+    <form method="get" style="display: flex; flex-direction: column; gap: 15px;">
+        {% for field in filter_form %}
+            <label for="{{ field.id_for_label }}" style="font-size: 22px; font-family: 'Jameel Noori Nastaleeq', sans-serif;">
+                {{ field.label }}
+            </label>
+            {{ field }}
+        {% endfor %}
+        <button type="submit" style="font-size: 20px; font-family: 'Jameel Noori Nastaleeq', sans-serif; padding: 10px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">فہرست دیکھیں</button>
+    </form>
+</div>
+
+{% if persons %}
+<form>
+    <div id="person-list" style="margin: 20px auto; padding: 15px; max-width: 100%; background-color: rgba(255, 255, 255, 0.9); border-radius: 8px;">
+        <h2 style="font-size: 22px; text-align: center; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <span style="text-align: left; font-size: 20px; color: #333;">
+                {{ filter_form.cleaned_data.bazar.name }}
+            </span>
+            <span style="text-align: right; font-size: 20px; color: #333;">
+                List of Month: 0{{ filter_form.cleaned_data.month }}/{{ filter_form.cleaned_data.year }}
+            </span>
+        </h2>
+
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; direction: rtl; text-align: center;">
+                <thead style="background-color: #f2f2f2;">
+                    <tr>
+                        <th style="border: 1px solid #ddd; padding: 12px; font-size: 20px;">تاریخ</th>
+                        <th style="border: 1px solid #ddd; padding: 12px; font-size: 20px;">شخص</th>
+                        <th style="border: 1px solid #ddd; padding: 12px; font-size: 20px;">رقم</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in persons %}
+                    <tr style="background-color: {% cycle '#fff' '#f9f9f9' %};">
+                        <td style="border: 1px solid #ddd; padding: 10px; font-size: 18px;">{{ person.sellery_date|default_if_none:"" }}</td>
+                        <td style="border: 1px solid #ddd; padding: 10px; font-size: 18px;">{{ person.name }}</td>
+                        <td style="border: 1px solid #ddd; padding: 10px; font-size: 18px;">{{ person.sellery_amount|default_if_none:"" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Print Button -->
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="printList()" style="font-size: 18px; font-family: 'Jameel Noori Nastaleeq', sans-serif; padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 8px; cursor: pointer; width: 100%; max-width: 200px;">
+                فہرست پرنٹ کریں
+            </button>
+        </div>
+    </div>
+</form>
+
+<script>
+    // Function to print the person list
+    function printList() {
+        var printContents = document.getElementById('person-list').innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        location.reload(); // Reload to restore the original content
+    }
+</script>
+{% else %}
+<p style="font-size: 18px; color: gray; text-align: center; margin-top: 20px;">کوئی ریکارڈ دستیاب نہیں۔</p>
+{% endif %}
+{% endblock %}

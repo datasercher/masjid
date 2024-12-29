@@ -1,0 +1,59 @@
+{% extends 'finance/base.html' %}
+
+{% block title %}شخص کا اندراج{% endblock %}
+
+{% block content %}
+<h1 class="my-4" style="text-align: center; font-family: 'Jameel Noori Nastaleeq', sans-serif; font-size: 36px; color: white;">شخص کا اندراج</h1>
+
+<div class="form-container">
+    <form method="POST" style="text-align: right; width: 100%; max-width: 400px; margin: 0 auto;">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <!-- Bazar Field -->
+            <label for="id_bazar" style="font-size: 26px; font-family: 'Jameel Noori Nastaleeq', sans-serif; display: block; margin-bottom: 8px; text-align: right;">
+                بازار
+            </label>
+            {{ form.bazar }}
+
+            <!-- Month Field -->
+            <label for="id_month" style="font-size: 26px; font-family: 'Jameel Noori Nastaleeq', sans-serif; display: block; margin-bottom: 8px; text-align: right;">
+                مہینہ
+            </label>
+            {{ form.month }}
+
+            <!-- Year Field -->
+            <label for="id_year" style="font-size: 26px; font-family: 'Jameel Noori Nastaleeq', sans-serif; display: block; margin-bottom: 8px; text-align: right;">
+                سال
+            </label>
+            {{ form.year }}
+
+            <!-- Person Name Field -->
+            <label for="id_person_name" style="font-size: 26px; font-family: 'Jameel Noori Nastaleeq', sans-serif; display: block; margin-bottom: 8px; text-align: right;">
+                شخص کا نام
+            </label>
+            {{ form.person_name }}
+
+        </div>
+        <a href="{% url 'upload_person_list' %}" class="btn btn-primary" style="font-size: 28px; font-family: 'Jameel Noori Nastaleeq', sans-serif; padding: 12px 24px; width: auto; background-color: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer;">فائل اپ لوڈ</a>
+        <button type="submit" class="btn btn-primary" style="font-size: 28px; font-family: 'Jameel Noori Nastaleeq', sans-serif; padding: 12px 24px; width: auto; background-color: #007BFF; color: white; border: none; border-radius: 8px; cursor: pointer;">
+            شخص شامل کریں
+        </button>
+        </form>
+</div>
+
+<div>
+    {% if form.errors %}
+    <div class="alert alert-danger mt-4">
+        <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li style="font-size: 26px; font-family: 'Jameel Noori Nastaleeq', sans-serif; display: block; margin-bottom: 8px; text-align: center; color: red;">{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

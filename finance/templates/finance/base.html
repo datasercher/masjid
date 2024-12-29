@@ -1,0 +1,456 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}مسجد گلزار مدینہ{% endblock %}</title>
+        
+        <!-- Include Font Awesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: url("{% static 'fonts/JameelNooriNastaleeq.ttf' %}") format('truetype'),
+                 url("{% static 'fonts/JameelNooriNastaleeq.woff' %}") format('woff'),
+                 url("{% static 'fonts/JameelNooriNastaleeq.woff2' %}") format('woff2');
+        }
+
+        body {
+            font-family: 'Jameel Noori Nastaleeq', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            position: relative; /* Ensure the background blur works correctly */
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("{% static 'images/background-image.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            
+            filter: blur(8px); /* Apply the blur effect to the background */
+            z-index: -1; /* Ensure the background stays behind the content */
+        }
+        
+        body {
+            background: rgba(0, 0, 0, 0.3); /* Semi-transparent overlay for improved readability */
+        }
+        
+        
+
+        /* Header Style */
+        header {
+            background-color: rgba(0, 77, 64, 0.7); /* Semi-transparent background */
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 42px;
+            text-align: center;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .header-buttons button {
+            background-color: #007BFF;
+            color: white;
+            padding: 8px 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .header-buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        nav {
+            background-color: rgba(0, 77, 64, 0.7); /* Semi-transparent background */
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        div {
+            padding: 20px;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: center;
+            width: auto;
+            max-width: auto;
+            background-color: rgba(249, 249, 249, 0.9); /* Slightly transparent form background */
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 4px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+            text-align: right;
+        }
+
+        form select, form input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        form select {
+            font-size: 18px;
+            padding: 12px;
+            width: 100%;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        form select option {
+            font-size: 18px;
+        }
+        /* Dashboard Container */
+.dashboard-container {
+    position: relative;
+    padding: 20px;
+    height: auto; /* Adjust height to fit content */
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensure the blurred background doesn't overflow */
+    background-image: url('https://png.pngtree.com/png-clipart/20190613/original/pngtree-white-mosque-illustration-graphic-design-background-png-image_3575861.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Keeps background consistent while scrolling */
+}
+
+/* Ensure content adjusts for smaller screens */
+@media (max-width: 1200px) {
+    .dashboard-container {
+        padding: 15px;
+        margin: 15px;
+        border-radius: 6px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 10px;
+        margin: 10px;
+        background-attachment: scroll; /* Improve performance on smaller devices */
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-container {
+        padding: 5px;
+        margin: 5px;
+        border-radius: 4px;
+        background-position: top; /* Better alignment for narrow screens */
+    }
+}
+
+        
+        .dashboard-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.7); /* Light background overlay for content readability */
+            filter: blur(8px); /* Apply blur to background only */
+            z-index: -1; /* Ensure overlay stays behind the content */
+        }
+        
+        .dashboard-container .content-wrapper {
+            position: relative;
+            z-index: 1; /* Ensure the content stays on top */
+        }
+        
+
+/* Dashboard Title */
+.dashboard-title {
+    text-align: center;
+    font-size: 36px;
+    color: #004d40;
+    margin-bottom: 10px;
+}
+
+/* Welcome Message */
+.welcome-message {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Dashboard Modules Layout */
+.dashboard-modules {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Each Dashboard Module */
+.dashboard-module {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Hover Effect for Modules */
+.dashboard-module:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Module Link */
+.module-link {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Icon inside the module */
+.module-icon img {
+    width: 350px;
+    height: 350px;
+    margin-bottom: 15px;
+}
+
+/* Title inside the module */
+.module-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #007BFF;
+}
+
+/* Hover effect for link */
+.module-link:hover .module-title {
+    color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .module-icon img {
+        width: 200px;  /* Adjust for smaller screens */
+        height: 200px; /* Adjust for smaller screens */
+    }
+}
+
+
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+    .dashboard-title {
+        font-size: 28px;
+    }
+
+    .dashboard-modules {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+.dashboard-modules {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.dashboard-module {
+    padding: 20px;
+    border-radius: 8px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.dashboard-module:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Specific Styling for Last Two Modules */
+ .deposit {
+    background-color:  #343a40; /* Dark Gray */
+    color: white; /* White text */
+}
+
+.withdraw {
+    background-color: #20c997; /* Green */
+    color: white;
+}
+
+.balance {
+    background-color: #ffc107; /* Yellow */
+    color: #333333; /* Dark text for contrast */
+}
+
+.salary {
+    background-color: #17a2b8; /* Teal */
+    color: white;
+}
+
+.person-list {
+    background-color: #fd7e14; /* Orange */
+    color: white;
+}
+
+.view-person {
+    background-color: #6f42c1; /* Purple */
+    color: white;
+}
+
+/* Specific Styling for Last Two Modules */
+.view-person{
+    background-color: #007BFF; /* Dark Gray */
+    color: white; /* White text */
+}
+
+/* Specific Styling for Last Two Modules */
+ .deposit-list {
+    background-color: #6f42c1; #007BFF; /* Dark Gray */
+    color: white; /* White text */
+}
+
+/* Ensuring Icons in the Last Two Modules are White */
+.view-person .module-icon i, 
+.deposit-list .module-icon i,
+.deposit .module-icon i{
+    color: white !important; /* White icons */
+}
+
+/* Ensuring Titles in the Last Two Modules are White */
+.view-person .module-title, 
+.deposit-list .module-title,
+.deposit .module-title{
+    color: white !important; /* White titles */
+}
+
+/* General Styling for Modules (for consistency) */
+.dashboard-module {
+    padding: 20px;
+    border-radius: 8px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-module:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon Style */
+.module-icon i {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: inherit;
+}
+
+/* Title Style */
+.module-title {
+    font-size: 28px;
+    font-family: 'Jameel Noori Nastaleeq', sans-serif;
+    color: inherit;
+}
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>مسجد گلزار مدینہ</h1>
+        <div class="header-buttons">
+            <button onclick="window.location.href='{% url 'dashboard' %}';">Home</button>
+            <button onclick="window.history.back();">Back</button>
+        </div>
+    </header>
+
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

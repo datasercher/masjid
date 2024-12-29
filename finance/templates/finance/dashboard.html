@@ -1,0 +1,70 @@
+{% extends 'finance/base.html' %}
+{% load static %} 
+
+{% block title %}ڈیش بورڈ{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1 class="dashboard-title" style="text-align: center; font-size: 36px; font-family: 'Jameel Noori Nastaleeq', sans-serif;">ڈیش بورڈ</h1>
+    <h1 class="welcome-message" style="text-align: center; font-size: 26px; font-family: 'Jameel Noori Nastaleeq', sans-serif;">خوش آمدید !   مسجد گلزار مدینہ کے مالیاتی نظام میں</h1>
+
+    <div class="dashboard-modules">
+        <div class="dashboard-module deposit">
+            <a href="{% url 'deposit' %}" class="module-link">
+                <div class="module-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="module-title">رقم جمع کریں</div>
+            </a>
+        </div>
+        <div class="dashboard-module withdraw">
+            <a href="{% url 'withdraw' %}" class="module-link">
+                <div class="module-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="module-title">رقم نکالیں</div>
+            </a>
+        </div>
+        <div class="dashboard-module balance">
+            <a href="{% url 'check_balance' %}" class="module-link">
+                <div class="module-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="module-title">بیلنس چیک کریں</div>
+            </a>
+        </div>
+        {% comment %} <div class="dashboard-module salary">
+            <a href="{% url 'salary_list' %}" class="module-link">
+                <div class="module-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="module-title">تنخواہ کی فہرست</div>
+            </a>
+        </div> {% endcomment %}
+        <div class="dashboard-module person-list">
+            <a href="{% url 'create_person_list' %}" class="module-link">
+                <div class="module-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="module-title"> تنخواہ کی فہرست بنائیں</div>
+            </a>
+        </div>
+        <div class="dashboard-module view-person">
+            <a href="{% url 'view_person_list' %}" class="module-link">
+                <div class="module-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="module-title">فہرست دیکھیں</div>
+            </a>
+        </div>
+        <div class="dashboard-module deposit-list">
+            <a href="{% url 'deposit_sellery' %}" class="module-link">
+                <div class="module-icon">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <div class="module-title">کسی شخص کی تنخواہ جمع کریں</div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
