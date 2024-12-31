@@ -34,7 +34,7 @@ class Person(models.Model):
 class Deposit(models.Model):
     fund = models.ForeignKey(Fund, on_delete=models.CASCADE, verbose_name='فنڈ')
     amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='رقم')
-    date = models.DateField(auto_now_add=True, verbose_name='تاریخ')
+    date = models.DateField(verbose_name='تاریخ')
 
     def __str__(self):
         return f"{self.fund.name} - {self.amount}"
@@ -49,7 +49,7 @@ class Withdrawal(models.Model):
     category = models.CharField(max_length=20, choices=EXPENSE_CATEGORIES, verbose_name='اخراجات کی قسم')
     expense_name = models.CharField(max_length=500, blank=True, null=True, verbose_name='اخراجات کا نام')  # Optional for other expenses
     amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='رقم')
-    date = models.DateField(auto_now_add=True, verbose_name='تاریخ')
+    date = models.DateField(verbose_name='تاریخ')
 
     def __str__(self):
         return f"{self.expense_name} - {self.amount}"

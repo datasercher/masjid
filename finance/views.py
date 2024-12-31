@@ -154,11 +154,12 @@ def deposit(request):
             fund_type = form.cleaned_data['fund']
             amount = form.cleaned_data['amount']
             fund_name = form.cleaned_data.get('fund_name') if fund_type == 'OF' else None
-            
+            date = form.cleaned_data.get('date')
             # Handle deposit logic
             Deposit.objects.create(
                 fund=Fund.objects.get_or_create(name=fund_name if fund_name else fund_type)[0],
-                amount=amount
+                amount=amount,
+                date= date
             )
             return render(request, 'finance/dashboard.html')  # Success page
     else:
@@ -181,7 +182,8 @@ def withdraw(request):
                 expense_name = dict(Withdrawal.EXPENSE_CATEGORIES).get(category, category)
             
             amount = form.cleaned_data['amount']
-            
+            date = form.cleaned_data.get('date')
+
             # Check if the withdrawal amount exceeds the available balance
             available_balance = get_available_balance()  # You need to define this function based on your model
             if amount > available_balance:
@@ -192,7 +194,8 @@ def withdraw(request):
             Withdrawal.objects.create(
                 category=category,
                 expense_name=expense_name,  # Save the correct name here
-                amount=amount
+                amount=amount,
+                date = date
             )
             return render(request, 'finance/dashboard.html')  # Success page
     else:

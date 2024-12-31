@@ -37,35 +37,7 @@ class FilterForm(forms.Form):
         self.fields['bazar'].initial = Bazar.objects.first()  # Default first Bazar choice
         self.fields['month'].initial = 1  # Default month (January)
         self.fields['year'].initial = 2025  # Default year
-
-class WithdrawalForm(forms.ModelForm):
-    class Meta:
-        model = Withdrawal
-        fields = ['category', 'expense_name', 'amount']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # Set default category
-        self.fields['category'].initial = 'other_expense'
-        self.fields['category'].empty_label = None
-
-        # Customize labels
-        self.fields['category'].label = 'اخراجات کی قسم'
-        self.fields['expense_name'].label = 'اخراجات کا نام'
-        self.fields['amount'].label = 'رقم'
-
-        # Add placeholders
-        self.fields['expense_name'].widget.attrs.update({'placeholder': 'اخراجات کا نام درج کریں'})
-        self.fields['amount'].widget.attrs.update({'placeholder': 'رقم درج کریں'})
-
-        # Style fields
-        for field in self.fields.values():
-            field.widget.attrs.update({'style': 'font-size: 24px; padding: 10px; font-family: "Jameel Noori Nastaleeq", sans-serif; text-align: right;'})
-
-class DepositSelleryForm(forms.Form):
-    sellery_amount = forms.DecimalField(max_digits=10, decimal_places=2, label="تنخواہ")
-
+# forms.py
 
 class DepositForm(forms.Form):
     FUND_CHOICES = [
@@ -94,4 +66,40 @@ class DepositForm(forms.Form):
         label="رقم",
         widget=forms.NumberInput(attrs={'placeholder': 'رقم درج کریں', 'style': 'font-size: 18px; padding: 28px; font-family: "Jameel Noori Nastaleeq", sans-serif; direction: rtl;'})
     )
+    date = forms.DateField(
+        label="تاریخ",
+        widget=forms.DateInput(attrs={
+            'type': 'date',
+            'style': 'font-size: 18px; padding: 18px; font-family: "Jameel Noori Nastaleeq", sans-serif; direction: rtl;'
+        })
+    )
 
+class WithdrawalForm(forms.ModelForm):
+    class Meta:
+        model = Withdrawal
+        fields = ['category', 'expense_name', 'amount', 'date']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Set default category
+        self.fields['category'].initial = 'other_expense'
+        self.fields['category'].empty_label = None
+
+        # Customize labels
+        self.fields['category'].label = 'اخراجات کی قسم'
+        self.fields['expense_name'].label = 'اخراجات کا نام'
+        self.fields['amount'].label = 'رقم'
+        self.fields['date'].label = 'تاریخ'
+
+        # Add placeholders
+        self.fields['expense_name'].widget.attrs.update({'placeholder': 'اخراجات کا نام درج کریں'})
+        self.fields['amount'].widget.attrs.update({'placeholder': 'رقم درج کریں'})
+        self.fields['date'].widget = forms.DateInput(attrs={
+            'type': 'date',
+            'style': 'font-size: 24px; padding: 10px; font-family: "Jameel Noori Nastaleeq", sans-serif; text-align: right;',
+        })
+
+        # Style fields
+        for field in self.fields.values():
+            field.widget.attrs.update({'style': 'font-size: 24px; padding: 10px; font-family: "Jameel Noori Nastaleeq", sans-serif; text-align: right;'})
