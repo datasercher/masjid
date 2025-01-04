@@ -10,17 +10,16 @@ class Fund(models.Model):
     ]
     name = models.CharField(max_length=500, verbose_name='فنڈ کا نام')
     fund_type = models.CharField(max_length=10, choices=FUND_TYPES, verbose_name='فنڈ کی قسم')
-    description = models.TextField(blank=True, null=True, verbose_name='تفصیل')
     def get_fund_type_display_urdu(self):
         return dict(self.FUND_TYPES).get(self.fund_type, self.fund_type)
 
 class Bazar(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=50)
     def __str__(self):
         return self.name
 
 class Person(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=100)
     bazar = models.ForeignKey(Bazar, on_delete=models.CASCADE)
     year = models.PositiveIntegerField()
     month = models.PositiveIntegerField()
@@ -53,14 +52,3 @@ class Withdrawal(models.Model):
 
     def __str__(self):
         return f"{self.expense_name} - {self.amount}"
-
-
-
-class Salary(models.Model):
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name='شخص')
-    month = models.CharField(max_length=20, verbose_name='مہینہ')
-    year = models.IntegerField(verbose_name='سال')
-    amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='تنخواہ کی رقم')
-
-    def __str__(self):
-        return f"{self.person.name} - {self.amount}"

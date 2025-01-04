@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Sum, F
 from .forms import WithdrawalForm 
-from .models import Fund, Deposit, Withdrawal, Salary, Person
+from .models import Fund, Deposit, Withdrawal, Person
 from django.shortcuts import render, redirect
 from .forms import PersonForm, FilterForm
 from .models import Person, Bazar
