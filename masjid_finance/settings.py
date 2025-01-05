@@ -76,10 +76,15 @@ WSGI_APPLICATION = 'masjid_finance.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'masjiddbs',       # The name of the PostgreSQL database
+        'USER': 'postgres',       # Your PostgreSQL username
+        'PASSWORD': 'kali',  # Your PostgreSQL password
+        'HOST': 'localhost',          # Use 'localhost' for local development
+        'PORT': '5432',               # Default port for PostgreSQL
     }
 }
+
 
 
 # Password validation
