@@ -15,15 +15,14 @@ class UploadExcelForm(forms.Form):
     file = forms.FileField(label='Upload Excel File')
 
 class CreatePersonListForm(forms.Form):
-    bazar = forms.ModelChoiceField(queryset=Bazar.objects.all(), label="بازار")
+    bazar = forms.ModelChoiceField(
+        queryset=Bazar.objects.all(), 
+        label="بازار", 
+        initial=Bazar.objects.first()  # Set the default bazar (first item)
+    )
     month = forms.IntegerField(min_value=1, max_value=12, label="مہینہ", initial=1)  # Set a default month
     year = forms.IntegerField(label="سال", initial=2025)  # Set a default year
     person_name = forms.CharField(max_length=255, label="شخص کا نام")
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Set the default bazar (first item) only after the model is fully loaded
-        self.fields['bazar'].initial = Bazar.objects.first()
 
 
 class FilterForm(forms.Form):
